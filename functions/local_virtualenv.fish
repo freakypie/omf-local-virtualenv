@@ -1,16 +1,15 @@
-function local_virtualenv -d "My package" --on-variable PWD --description "auto-activate local virtualenvs"
+function local_virtualenv --on-variable PWD --description "auto-activate local virtualenvs"
   # Package entry-point
-  echo "hey"
-  if test -e (ls venv-*/bin/activate 2>/dev/null)
-    if ! test -n $VIRTUAL_ENV
-      export _VENV_NAME=
+  if ls venv-*/bin/activate.fish >/dev/null
+    if test -z $VIRTUAL_ENV
+      set _VENV_NAME "" >/dev/null ^/dev/null
     end
-    
+
     # Check to see if already activated to avoid redundant activating
-    if $_VENV_NAME != (basename `pwd`)
-      export _VENV_NAME=$(basename `pwd`)
-      echo Activating virtualenv \"$_VENV_NAME\"...
-      source ./venv-*/bin/activate
+    if test "$_VENV_NAME" != (basename (pwd))
+      set _VENV_NAME (basename (pwd)) >/dev/null ^/dev/null
+      echo Activating virtualenv $_VENV_NAME
+      source ./venv-*/bin/activate.fish
     end
   end
 end
