@@ -1,6 +1,7 @@
 function local_virtualenv --on-variable PWD --description "auto-activate local virtualenvs"
   # Package entry-point
-  if ls venv-*/bin/activate.fish >/dev/null
+  set -l has_virtualenv venv-*/bin/activate.fish
+  if test -n "$has_virtualenv"
     if test -z $VIRTUAL_ENV
       set _VENV_NAME "" >/dev/null ^/dev/null
     end
