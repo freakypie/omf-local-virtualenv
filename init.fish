@@ -5,4 +5,7 @@
 # * $path          package path
 # * $dependencies  package dependencies
 
+echo "hello"
 echo "You have installed $package from $path"
+
+local_virtualenv
